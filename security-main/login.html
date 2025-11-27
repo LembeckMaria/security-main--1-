@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIA Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Estilos específicos para a tela de login */
+        body {
+            background-color: #212529; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .login-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+        .logo-sia {
+            font-size: 1.5rem;
+            color: #1a4356; /* Usando cor mais escura para combinar com a paleta */
+            font-weight: bold;
+        }
+        .toggle-tab {
+            display: flex;
+            margin-bottom: 25px;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+        }
+        .toggle-tab .btn {
+            flex: 1;
+            border: none;
+            border-radius: 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            color: #212529;
+            font-weight: 500;
+        }
+        .toggle-tab .btn.active {
+            background-color: #ffffff;
+            border-bottom: 3px solid #1a4356;
+            font-weight: bold;
+            color: #1a4356;
+        }
+        /* Corrigir o botão 'Entrar' para a cor padrão do projeto (azul escuro) */
+        .btn-primary {
+            background-color: #1a4356 !important;
+            border-color: #1a4356 !important;
+        }
+        .btn-primary:hover {
+            background-color: #0e2a35 !important;
+            border-color: #0e2a35 !important;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-card">
+        
+        <div class="text-center mt-3">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: #1a4356;"></i>
+            <h1 class="logo-sia mt-2">SIA</h1>
+            <h5 class="mb-4 text-secondary" style="font-size: 0.9rem;">Security Industrial Assistant</h5>
+        </div>
+        
+        <div class="toggle-tab">
+            <button class="btn btn-sm active" id="tab-login">Login</button>
+            <button class="btn btn-sm" id="tab-cadastro">Cadastro</button>
+        </div>
+
+        <p id="login-message" class="alert" style="display:none;"></p>
+
+        <form id="login-form">
+            <div class="mb-3">
+                <label for="username" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="username" required value="admin@sia.com" placeholder="seu@email.com"> 
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" required value="123" placeholder="********">
+            </div>
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Entrar
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+    <p class="text-muted small mt-4" style="color: #ccc !important;">
+        Acesso seguro com criptografia JWT
+    </p>
+
+    <script>
+        // === CREDENCIAIS VÁLIDAS PARA SIMULAÇÃO ===
+        const VALID_USERNAME = "admin@sia.com";
+        const VALID_PASSWORD = "123";
+
+        // Lógica de Login (JavaScript Local)
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageEl = document.getElementById('login-message');
+            
+            messageEl.style.display = 'none';
+
+            if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+                // Login BEM-SUCEDIDO
+                messageEl.textContent = 'Login realizado com sucesso! Redirecionando para o Dashboard...';
+                messageEl.className = 'alert alert-success';
+                messageEl.style.display = 'block';
+
+                // Redireciona para o Dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html'; 
+                }, 1500);
+
+            } else {
+                // Login FALHOU
+                messageEl.textContent = 'Usuário ou senha inválidos. Tente novamente.';
+                messageEl.className = 'alert alert-danger';
+                messageEl.style.display = 'block';
+            }
+        });
+        
+        // Simulação de troca de Tabs
+        document.getElementById('tab-cadastro').addEventListener('click', function() {
+            alert('A funcionalidade de Cadastro ainda não está implementada.');
+        });
+        document.getElementById('tab-login').addEventListener('click', function() {
+            document.getElementById('tab-cadastro').classList.remove('active');
+            document.getElementById('tab-login').classList.add('active');
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
